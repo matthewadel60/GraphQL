@@ -109,7 +109,7 @@ app.use(
                 description: args.eventInput.description,
                 price: +args.eventInput.price,
                 date:new Date(args.eventInput.date),
-                creator: '5ccf07cea7e90822a0450394'
+                creator: user.bind(this, event.creator)
             });
             let createdEvent;
             return event
@@ -117,7 +117,7 @@ app.use(
             .then(result=>{
                 createdEvent={...result._doc, _id: result._doc.toString(), creator: user.bind(this, result._doc.creator)
                  };
-                return User.findById('5ccf07cea7e90822a0450394')
+                return User.findById(user.bind(this, event.creator))
             })
             .then(user=>{
                 if(!user){
